@@ -34,6 +34,8 @@ Ref: http://www.fsij.org/doc-gnuk/gnuk-passphrase-setting.html#set-up-pw1-pw3-an
 - 0 (do not expire)
 - set a passphrase
 - wait for entropy and key generation
+- This process may take a long time depending on how active your system is and the keysize you selected.  
+ To generate additional entropy more easily, you can use haveged: https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged
 
 This will give you the ID of the newly created key, like  
 "pub rsa4096/C6963FA6" : C6963FA6 is your key id.
@@ -74,15 +76,32 @@ Armored:
 ## Convert the privkey to .pem
 
 In order to convert the key to pem format, we need a key exported without a passphrase.  
-gpg2 does not allow that. So we use gpg as a temporary step.
+gpg2 does not allow that. So we use gpg as a temporary step.  
+Pay attention to gpg/gpg2 in the commands!
 
-- export gpg2 | import gpg
-- remove passphrase
-- export unencrypted
+- export gpg2 and import into gpg with hpassphrase 
+  `gpg2 --export-secret-keys YOUR_KEY_ID| gpg --import`
+- remove passphrase  
+  `gpg --edit-key YOUR_KEY_ID`  
+  `passwd` Enter temporary passphrase to unlock, then give new, empty passphrase, confirm empty passphrase.  
+  `save`
+- export unencrypted  
+   `gpg --armor --export-secret-keys YOUR_KEY_ID > your_key_id.secret.clear.asc
+- now we can finally convert  
+  `cat your_key_id.secret.clear.asc|openpgp2pem YOUR_KEY_ID > your_key_id.secret.pem`
 
 ## Convert to pycrypto format
 
-- python, + regenerate pubkey and address
+You can now read from pycryptodome:
+
+```
+from Cryptodome.PublicKey import RSA
+
+with open('your_key_id.secret.pem', 'rb') as f:
+    key_secret = RSA.importKey(f.read())
+```
+
+Python script to regenerate pubkey and address, see pem_recover.py
 
 ## Sign a message with the card
 
