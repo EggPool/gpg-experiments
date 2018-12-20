@@ -16,6 +16,11 @@ Highly experimental, use at your own risks and only if you understand what you'r
 - Python3
 - air gap secure machine, like a tail distro if you want to use the keys IRL
 
+`sudo apt install gnupg2 pcscd scdaemon pcsc-tools`
+
+Ubuntu 16 comes with opensc 15, need 16 mini.  
+Use ubuntu 18 or compile from source.
+
 ## Token initialisation
 
 - Set the reset, admin and user pin (in that order)
@@ -110,6 +115,11 @@ Python script to regenerate pubkey and address, see pem_recover.py
 
 - `gpg2 --armor --clearsign test.txt` creates a test.asc with raw text as input, does not compress first
 
+
+Prepare hash to be signed
+
+- `openssl sha1 -binary ./test > test.sha1`  # Binary hash (same as Pytyhon SHA)
+- `pkcs15-crypt --key 01 --sign --pkcs1 --sha-1 --input test.sha1 --output test.pk.sig`
 
 ## TODO
 
