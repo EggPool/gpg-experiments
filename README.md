@@ -86,7 +86,7 @@ Pay attention to gpg/gpg2 in the commands!
   `passwd` Enter temporary passphrase to unlock, then give new, empty passphrase, confirm empty passphrase.  
   `save`
 - export unencrypted  
-   `gpg --armor --export-secret-keys YOUR_KEY_ID > your_key_id.secret.clear.asc
+   `gpg --armor --export-secret-keys YOUR_KEY_ID > your_key_id.secret.clear.asc`
 - now we can finally convert  
   `cat your_key_id.secret.clear.asc|openpgp2pem YOUR_KEY_ID > your_key_id.secret.pem`
 
@@ -105,4 +105,18 @@ Python script to regenerate pubkey and address, see pem_recover.py
 
 ## Sign a message with the card
 
-- 
+- `gpg2 --detach-sign  test.txt` creates a test.sig (bin)
+- `gpg2 --armor --detach-sign  test.txt` creates a test.asc
+
+## TODO
+
+Convert PGP signature to Pycrypto signature and compare outputs.
+
+## Possible useful related info
+
+* https://github.com/SecurityInnovation/PGPy  
+* pgpdump `gpg2 --export YOUR_KEY_ID | pgpdump -i`(needs apt install pgpdump)  
+* To understand the output of pgpdump (and the structure of OpenPGP messages), see https://tools.ietf.org/html/rfc4880
+* https://stackoverflow.com/questions/19305030/how-to-make-an-gnupg-key-compatible-with-pycrypto  
+  (see saving PEM with passphrase)
+* More conversions http://www.sysmic.org/dotclear/index.php?post/2010/03/24/Convert-keys-betweens-GnuPG%2C-OpenSsh-and-OpenSSL
