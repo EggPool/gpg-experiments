@@ -93,7 +93,7 @@ In order to convert the key to pem format, we need a key exported without a pass
 gpg2 does not allow that. So we use gpg as a temporary step.  
 Pay attention to gpg/gpg2 in the commands!
 
-- export gpg2 and import into gpg with hpassphrase 
+- export gpg2 and import into gpg with passphrase 
   `gpg2 --export-secret-keys YOUR_KEY_ID| gpg --import`
 - remove passphrase  
   `gpg --edit-key YOUR_KEY_ID`  
