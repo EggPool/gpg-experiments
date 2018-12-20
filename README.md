@@ -112,7 +112,10 @@ Python script to regenerate pubkey and address, see pem_recover.py
 
 Convert PGP signature to Pycrypto signature and compare outputs.
 
-## Possible useful related info
+See js packet decoder to get binary sig
+https://cirw.in/gpg-decoder
+
+## Useful related info
 
 * https://github.com/SecurityInnovation/PGPy  
 * pgpdump `gpg2 --export YOUR_KEY_ID | pgpdump -i`(needs apt install pgpdump)  
