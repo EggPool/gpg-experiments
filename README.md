@@ -15,7 +15,7 @@ Highly experimental, use at your own risks and only if you understand what you'r
 - Python3
 - air gap secure machine, like a tail distro if you want to use the keys IRL
 
-`sudo apt install gnupg2 pcscd scdaemon pcsc-tools`
+`sudo apt install gnupg2 pcscd scdaemon pcsc-tools opensc`
 
 ### OpenSc
 Ubuntu 16 comes with opensc 0.15, needs 0.16 mini.  
