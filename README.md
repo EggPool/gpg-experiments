@@ -7,7 +7,7 @@ Highly experimental, use at your own risks and only if you understand what you'r
 ## Pre-requisites
 
 - openpgp compatible token, like a nitrokey or yubikey or a gnuk token  
-  See Tokens.md
+  See https://github.com/EggPool/gpg-experiments/blob/master/Tokens.md
 - Done on Ubuntu, same on other linuxes
 - GPG v1
 - GPG v2
