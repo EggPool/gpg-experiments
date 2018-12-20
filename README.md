@@ -108,12 +108,17 @@ Python script to regenerate pubkey and address, see pem_recover.py
 - `gpg2 --detach-sign  test.txt` creates a test.sig (bin)
 - `gpg2 --armor --detach-sign  test.txt` creates a test.asc
 
+- `gpg2 --armor --clearsign test.txt` creates a test.asc with raw text as input, does not compress first
+
+
 ## TODO
 
 Convert PGP signature to Pycrypto signature and compare outputs.
 
 See js packet decoder to get binary sig
 https://cirw.in/gpg-decoder
+
+https://tools.ietf.org/html/rfc4880#section-5.2.1
 
 ## Useful related info
 
