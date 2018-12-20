@@ -120,6 +120,14 @@ https://cirw.in/gpg-decoder
 
 https://tools.ietf.org/html/rfc4880#section-5.2.1
 
+"The concatenation of the data to be signed, the signature type, and creation time from the Signature packet  
+(5 additional octets) is hashed.  
+The resulting hash value is used in the signature algorithm."
+
+So, not compatible with Bismuth as is (via openpgp commands)
+
+Maybe direct opensc calls could get the signature of a given buffer, without adding anything along the way.
+
 ## Useful related info
 
 * https://github.com/SecurityInnovation/PGPy  
