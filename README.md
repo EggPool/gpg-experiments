@@ -22,7 +22,7 @@ Highly experimental, use at your own risks and only if you understand what you'r
 - `gpg2 --card-edit`
 - `admin`
 - `passwd`
-- Select 4 "Set the reset code", set pin code. Then 3 "Admin PIN", then 1 "Change PIN"
+- Select `4` "Set the reset code", set pin code. Then `3` "Admin PIN", then `1` "Change PIN"
 
 Ref: http://www.fsij.org/doc-gnuk/gnuk-passphrase-setting.html#set-up-pw1-pw3-and-reset-code
 
@@ -55,11 +55,23 @@ To unwrap a file already in PGP ASCII armor, use `gpg2 --dearmor < filename.txt 
 
 ## Move the key to the pgp card
 
+> **Warning**: This will *move* the key to the card, therefore delete it from the local keyring.  
+You need to do the backup first.
+
+- `gpg2 --edit-key YOUR_KEY_ID`
+- `keytocard`
+- Select `1`: Signature key
+- `save`
+
 ## Export the pubkey
 
-## Export the privkey
+Unarmored:  
+`gpg2 --export YOUR_KEY_ID > your_key_id.public.bin`
 
-## Convert the keys to .pem
+Armored:  
+`gpg2 --armor --export YOUR_KEY_ID > your_key_id.public.asc`
+
+## Convert the privkey to .pem
 
 In order to convert the key to pem format, we need a key exported without a passphrase.  
 gpg2 does not allow that. So we use gpg as a temporary step.
