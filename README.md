@@ -128,6 +128,8 @@ So, not compatible with Bismuth as is (via openpgp commands)
 
 Maybe direct opensc calls could get the signature of a given buffer, without adding anything along the way.
 
+See https://htmlpreview.github.io/?https://github.com/OpenSC/OpenSC/blob/master/doc/tools/tools.html#pkcs15-crypt
+
 ## Useful related info
 
 * https://github.com/SecurityInnovation/PGPy  
