@@ -18,8 +18,13 @@ Highly experimental, use at your own risks and only if you understand what you'r
 
 `sudo apt install gnupg2 pcscd scdaemon pcsc-tools`
 
-Ubuntu 16 comes with opensc 15, need 16 mini.  
-Use ubuntu 18 or compile from source.
+Ubuntu 16 comes with opensc 0.15, needs 0.16 mini.  
+Use ubuntu 18 or compile from source, see https://github.com/OpenSC/OpenSC/wiki/Compiling-and-Installing-on-Unix-flavors
+
+Also see
+https://www.nitrokey.com/documentation/frequently-asked-questions-faq#which-gnupg,-opensc-and-libccid-versions-are-required
+https://www.nitrokey.com/documentation/frequently-asked-questions-faq#latest-device-driver-missing-on-older-linux-distribution
+
 
 ## Token initialisation
 
