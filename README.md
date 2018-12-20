@@ -142,7 +142,7 @@ Prepare hash to be signed
 
 - `openssl sha1 -binary ./test > test.sha1`  # Binary hash (same as Pytyhon SHA)
 - `pkcs15-crypt --key 01 --sign --pkcs1 --sha-1 --input test.sha1 --output test.pk.sig`  
-  01 is thhe first key of the device, the signature one.  
+  01 is the first key of the device, the signature one.  
   --pkcs1 padds the input buffer
   
   test.pk.sig contains the (bin) signature, matches the python one.
