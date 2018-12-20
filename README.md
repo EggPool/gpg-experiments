@@ -12,16 +12,20 @@ Highly experimental, use at your own risks and only if you understand what you'r
 - GPG v1
 - GPG v2
 - Monkeysphere `sudo apt install monkeysphere`
-- Drivers (TODO: see nitrokey install)
 - Python3
 - air gap secure machine, like a tail distro if you want to use the keys IRL
 
 `sudo apt install gnupg2 pcscd scdaemon pcsc-tools`
 
+### OpenSc
 Ubuntu 16 comes with opensc 0.15, needs 0.16 mini.  
 Use ubuntu 18 or compile from source, see https://github.com/OpenSC/OpenSC/wiki/Compiling-and-Installing-on-Unix-flavors
 
-Also see
+Check version with `opensc-tool -i`, needs 0.16.0 min, current git is 0.19.0
+
+Check opensc works with `opensc-tool -a`, should list at least one card reader and one card, give no error.
+
+If needed, see
 https://www.nitrokey.com/documentation/frequently-asked-questions-faq#which-gnupg,-opensc-and-libccid-versions-are-required
 https://www.nitrokey.com/documentation/frequently-asked-questions-faq#latest-device-driver-missing-on-older-linux-distribution
 
@@ -113,40 +117,40 @@ with open('your_key_id.secret.pem', 'rb') as f:
 
 Python script to regenerate pubkey and address, see pem_recover.py
 
+> TODO: regenerated pubkey does not seem the same (under b64 form) than the one converted above.
+Double check and see what gives export/import from python.
+
 ## Sign a message with the card
+
+### GPG Signatures
 
 - `gpg2 --detach-sign  test.txt` creates a test.sig (bin)
 - `gpg2 --armor --detach-sign  test.txt` creates a test.asc
-
 - `gpg2 --armor --clearsign test.txt` creates a test.asc with raw text as input, does not compress first
 
+Those are of no use for Bismuth, since the GPG protocol append more bytes, including timestamp, to the buffer to be hashed and signed.
 
-Prepare hash to be signed
-
-- `openssl sha1 -binary ./test > test.sha1`  # Binary hash (same as Pytyhon SHA)
-- `pkcs15-crypt --key 01 --sign --pkcs1 --sha-1 --input test.sha1 --output test.pk.sig`
-
-## TODO
-
-Convert PGP signature to Pycrypto signature and compare outputs.
-
-See js packet decoder to get binary sig
-https://cirw.in/gpg-decoder
-
-https://tools.ietf.org/html/rfc4880#section-5.2.1
-
+> https://tools.ietf.org/html/rfc4880#section-5.2.1  
 "The concatenation of the data to be signed, the signature type, and creation time from the Signature packet  
 (5 additional octets) is hashed.  
 The resulting hash value is used in the signature algorithm."
 
-So, not compatible with Bismuth as is (via openpgp commands)
 
-Maybe direct opensc calls could get the signature of a given buffer, without adding anything along the way.
+### Raw PKCS1_15 Signatures
 
-See https://htmlpreview.github.io/?https://github.com/OpenSC/OpenSC/blob/master/doc/tools/tools.html#pkcs15-crypt
+Prepare hash to be signed
+
+- `openssl sha1 -binary ./test > test.sha1`  # Binary hash (same as Pytyhon SHA)
+- `pkcs15-crypt --key 01 --sign --pkcs1 --sha-1 --input test.sha1 --output test.pk.sig`  
+  01 is thhe first key of the device, the signature one.  
+  --pkcs1 padds the input buffer
+  
+  test.pk.sig contains the (bin) signature, matches the python one.
 
 ## Useful related info
 
+* https://htmlpreview.github.io/?https://github.com/OpenSC/OpenSC/blob/master/doc/tools/tools.html#pkcs15-crypt
+* js packet decoder to get binary sig https://cirw.in/gpg-decoder
 * https://github.com/SecurityInnovation/PGPy  
 * pgpdump `gpg2 --export YOUR_KEY_ID | pgpdump -i`(needs apt install pgpdump)  
 * To understand the output of pgpdump (and the structure of OpenPGP messages), see https://tools.ietf.org/html/rfc4880
