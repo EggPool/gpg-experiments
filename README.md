@@ -7,7 +7,7 @@ Highly experimental, use at your own risks and only if you understand what you'r
 ## Pre-requisites
 
 - openpgp compatible token, like a nitrokey or yubikey or a gnuk token  
-  TODO: list compatible cards and shops
+  See Tokens.md
 - Done on Ubuntu, same on other linuxes
 - GPG v1
 - GPG v2
