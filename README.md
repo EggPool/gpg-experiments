@@ -155,6 +155,11 @@ Prepare hash to be signed
   
   test.pk.sig contains the (bin) signature, matches the python one.
 
+### Opensc commands
+
+- `openpgp-tool -K` List keys and fingerprints
+
+
 ## Useful related info
 
 * https://htmlpreview.github.io/?https://github.com/OpenSC/OpenSC/blob/master/doc/tools/tools.html#pkcs15-crypt
